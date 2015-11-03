@@ -125,13 +125,10 @@ QColor QGVCore::toColor(const QString &color)
         return QColor(color);
 }
 
-QRectF QGVCore::toRect(qreal xpos, qreal ypos, qreal orig_xpos, qreal orig_ypos, qreal width, qreal height,
-                       qreal gheight)
+QRectF QGVCore::toRect(qreal xpos, qreal ypos, qreal orig_xpos, qreal orig_ypos, qreal width, qreal height)
 {
         qreal x = (orig_xpos + xpos);
         qreal y = (orig_ypos - ypos);
-        qDebug() << "In X: " << xpos << " In Y: " << ypos << " Orig xpos: " << orig_xpos << " Orig ypos: " << orig_ypos;
-        qDebug() << "X: " << x << " Y: " << y << " width: " << width << " height: " << height;
         return QRectF(x, y, width, height);
 }
 
@@ -144,14 +141,11 @@ QVector<QPair<QRectF, QString> > QGVCore::to_record_label(field_t *field, qreal 
         qreal                            orig_x_center = orig_width / 2;
         qreal                            orig_y_center = orig_height / 2;
         while (!fields.isEmpty()) {
-                field_t *f = fields.takeFirst();
-
+                field_t *f    = fields.takeFirst();
                 QRectF  rect  = QGVCore::toRect(f->b.LL.x, f->b.UR.y, orig_x_center, orig_y_center, f->size.x,
-                                                f->size.y, gheight);
+                                                f->size.y);
                 QString label = (f->lp != nullptr) ? QString(f->lp->text) : QString();
-                qDebug() << "Label: " << label;
                 ret_val.append(QPair<QRectF, QString>(rect, label));
-
                 for (int i = 0; i < f->n_flds; ++i) {
                         fields.append(f->fld[i]);
                 }

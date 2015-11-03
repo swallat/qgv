@@ -57,8 +57,7 @@ public:
 
     static QColor toColor(const QString &color);
 
-    static QRectF toRect(qreal xpos, qreal ypos, qreal orig_xpos, qreal orig_ypos, qreal width, qreal height,
-                         qreal gheight);
+    static QRectF toRect(qreal xpos, qreal ypos, qreal orig_xpos, qreal orig_ypos, qreal width, qreal height);
 
     static QVector<QPair<QRectF, QString> > to_record_label(field_t *field, qreal gheight, qreal orig_width,
                                                             qreal orig_height);
