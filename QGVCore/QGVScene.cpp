@@ -156,9 +156,9 @@ void QGVScene::applyLayout()
         }
 
         //Debug output
-        gvRenderFilename(_context->context(), _graph->graph(), "canon", "debug.dot");
-        gvRenderFilename(_context->context(), _graph->graph(), "png", "debug.png");
-        gvRenderFilename(_context->context(), _graph->graph(), "svg", "debug.svg");
+//        gvRenderFilename(_context->context(), _graph->graph(), "canon", "debug.dot");
+//        gvRenderFilename(_context->context(), _graph->graph(), "png", "debug.png");
+//        gvRenderFilename(_context->context(), _graph->graph(), "svg", "debug.svg");
 
         //Update items layout
                 foreach(QGVNode *node, _nodes)
