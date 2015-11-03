@@ -59,15 +59,14 @@ public:
 
     static QRectF toRect(qreal xpos, qreal ypos, qreal orig_xpos, qreal orig_ypos, qreal width, qreal height);
 
-    static QVector<QPair<QRectF, QString> > to_record_label(field_t *field, qreal gheight, qreal orig_width,
-                                                            qreal orig_height);
+    static QVector<QPair<QRectF, QString> > to_record_label(field_t *field, qreal width, qreal height);
 
     typedef struct
     {
         const char *data;
         int        len;
         int        cur;
-    }                                       rdr_t;
+    }                                      rdr_t;
 
     static int memiofread(void *chan, char *buf, int bufsize)
     {

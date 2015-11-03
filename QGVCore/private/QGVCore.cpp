@@ -132,14 +132,13 @@ QRectF QGVCore::toRect(qreal xpos, qreal ypos, qreal orig_xpos, qreal orig_ypos,
         return QRectF(x, y, width, height);
 }
 
-QVector<QPair<QRectF, QString> > QGVCore::to_record_label(field_t *field, qreal gheight, qreal orig_width,
-                                                          qreal orig_height)
+QVector<QPair<QRectF, QString> > QGVCore::to_record_label(field_t *field, qreal width, qreal height)
 {
         QVector<field_t *> fields;
         fields.append(field);
         QVector<QPair<QRectF, QString> > ret_val;
-        qreal                            orig_x_center = orig_width / 2;
-        qreal                            orig_y_center = orig_height / 2;
+        qreal                            orig_x_center = width / 2;
+        qreal                            orig_y_center = height / 2;
         while (!fields.isEmpty()) {
                 field_t *f    = fields.takeFirst();
                 QRectF  rect  = QGVCore::toRect(f->b.LL.x, f->b.UR.y, orig_x_center, orig_y_center, f->size.x,

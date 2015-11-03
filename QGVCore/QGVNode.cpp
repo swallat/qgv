@@ -63,17 +63,10 @@ void QGVNode::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, Q
         else
                 painter->setBrush(_brush);
         if (is_record) {
-                QPen tpen(_pen);
-                tpen.setColor(Qt::GlobalColor::red);
-                painter->setPen(tpen);
-                painter->drawRect(_boundingBox);
-                painter->setPen(_pen);
                 for (auto i : _record_desc) {
-                        painter->save();
                         painter->drawRect(i.first);
                         if (!i.second.isEmpty())
                                 painter->drawText(i.first, Qt::AlignCenter, i.second);
-                        painter->restore();
                 }
         } else {
                 painter->drawPath(_path);
@@ -120,27 +113,12 @@ void QGVNode::setIcon(const QImage &icon)
 void QGVNode::updateLayout()
 {
         prepareGeometryChange();
-        qreal width_orig  = ND_width(_node->node());
-        qreal width       = width_orig * (DotDefaultDPI);
-        qreal height_orig = ND_height(_node->node());
-        qreal height      = height_orig * (DotDefaultDPI);
+        qreal width       = ND_width(_node->node()) * (DotDefaultDPI);
+        qreal height      = ND_height(_node->node()) * (DotDefaultDPI);
 
         //Node Position (center)
         qreal gheight = QGVCore::graphHeight(_scene->_graph->graph());
-
-        qreal   orig_xpos = ND_coord(_node->node()).x;
-        qreal   x_pos     = ND_coord(_node->node()).x - width / 2;
-        //setX(x_pos);
-        qreal   orig_ypos = ND_coord(_node->node()).y;
-        qreal   y_pos     = (gheight - ND_coord(_node->node()).y) - height / 2;
-        QPointF pos       = QPointF(x_pos, y_pos);
-//        QPointF pos = QGVCore::centerToOrigin(QGVCore::toPoint(ND_coord(_node->node()), gheight), width, height);
-        setPos(pos);
-
-        qDebug() << "Orig width: " << width_orig << " width: " << width << " Orig Height: " << height_orig <<
-        " Height: " << height;
-        qDebug() << "Orig X: " << orig_xpos << " X: " << x_pos << " Orig Y: " << orig_ypos << " Y: " << y_pos;
-
+        setPos(QGVCore::centerToOrigin(QGVCore::toPoint(ND_coord(_node->node()), gheight), width, height));
 
         //Node on top
         setZValue(1);
@@ -148,12 +126,7 @@ void QGVNode::updateLayout()
         //Node path
         if (0 == strcmp(ND_shape(_node->node())->name, "record")) {
                 this->is_record = true;
-//        _record_desc = QGVCore::to_record_label((field_t *) ND_shape_info(_node->node()), pos.x(), pos.y(), gheight, width, height);
-                _record_desc = QGVCore::to_record_label((field_t *) ND_shape_info(_node->node()), gheight, width,
-                                                        height);
-                QPointF pos = QGVCore::centerToOrigin(QGVCore::toPoint(ND_coord(_node->node()), gheight), width,
-                                                      height);
-                _boundingBox = QRectF(QPointF(0, 0), QSizeF(width, height));
+                _record_desc = QGVCore::to_record_label((field_t *) ND_shape_info(_node->node()), width, height);
         } else {
                 this->is_record = false;
                 _path = QGVCore::toPath(ND_shape(_node->node())->name, (polygon_t *) ND_shape_info(_node->node()),

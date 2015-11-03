@@ -69,12 +69,6 @@ void MainWindow::drawGraph()
         _scene->setEdgeAttribute("minlen", "2");
         //_scene->setEdgeAttribute("weight", "0.5");
         //_scene->setEdgeAttribute("dir", "both");
-
-        double  rad = 1;
-        QPointF pt  = ui->graphicsView->mapToScene(QPoint(0, 0));
-        _scene->addEllipse(0 - rad, 0 - rad, rad * 2.0, rad * 2.0,
-                           QPen(), QBrush(Qt::SolidPattern));
-
         //Add some nodes
         QGVNode *node1 = _scene->addNode("<f0> left|<f1> middle|<f2> right");
 //        node1->setIcon(QImage(":/icons/Gnome-System-Run-64.png"));

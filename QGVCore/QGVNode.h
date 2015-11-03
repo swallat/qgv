@@ -76,7 +76,6 @@ private:
     bool                             is_record = false;
     QVector<QPair<QRectF, QString> > _record_desc;
     QPainterPath                     _path;
-    QRectF                           _boundingBox;
     QPen                             _pen;
     QBrush                           _brush;
     QImage                           _icon;
