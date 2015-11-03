@@ -23,7 +23,9 @@ License along with this library.
 #include <QPen>
 
 class QGVEdge;
+
 class QGVScene;
+
 class QGVNodePrivate;
 
 /**
@@ -36,38 +38,51 @@ public:
     ~QGVNode();
 
     QString label() const;
-    void setLabel(const QString &label);
 
-    QRectF boundingRect() const;
-    void paint(QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget = 0);
-    void setAttribute(const QString &label, const QString &value);
+    void    setLabel(const QString &label);
+
+    QRectF  boundingRect() const;
+
+    void    paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget = 0);
+
+    void    setAttribute(const QString &label, const QString &value);
+
     QString getAttribute(const QString &name) const;
 
     void setIcon(const QImage &icon);
 
-    enum { Type = UserType + 2 };
+    enum
+    {
+        Type = UserType + 2
+    };
+
     int type() const
     {
-        return Type;
+            return Type;
     }
 
 private:
     friend class QGVScene;
-    friend class QGVSubGraph;
-    void updateLayout();
-		QGVNode(QGVNodePrivate* node, QGVScene *scene);
 
-		// Not implemented in QGVNode.cpp
+    friend class QGVSubGraph;
+
+    void updateLayout();
+
+         QGVNode(QGVNodePrivate *node, QGVScene *scene);
+
+    // Not implemented in QGVNode.cpp
 //		QPainterPath makeShape(Agnode_t* node) const;
 //		QPolygonF makeShapeHelper(Agnode_t* node) const;
-
-    QPainterPath _path;
-    QPen _pen;
-    QBrush _brush;
-    QImage _icon;
+    bool                             is_record = false;
+    QVector<QPair<QRectF, QString> > _record_desc;
+    QPainterPath                     _path;
+    QRectF                           _boundingBox;
+    QPen                             _pen;
+    QBrush                           _brush;
+    QImage                           _icon;
 
     QGVScene *_scene;
-		QGVNodePrivate* _node;
+    QGVNodePrivate *_node;
 };
 
 
