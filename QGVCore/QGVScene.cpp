@@ -161,14 +161,14 @@ void QGVScene::applyLayout()
 //        gvRenderFilename(_context->context(), _graph->graph(), "svg", "debug.svg");
 
         //Update items layout
-                foreach(QGVNode *node, _nodes)
-                        node->updateLayout();
+        for(QGVNode *node : _nodes)
+                node->updateLayout();
 
-                foreach(QGVEdge *edge, _edges)
-                        edge->updateLayout();
+        for(QGVEdge *edge : _edges)
+                edge->updateLayout();
 
-                foreach(QGVSubGraph *sgraph, _subGraphs)
-                        sgraph->updateLayout();
+        for(QGVSubGraph *sgraph : _subGraphs)
+                sgraph->updateLayout();
 
         //Graph label
         textlabel_t *xlabel = GD_label(_graph->graph());

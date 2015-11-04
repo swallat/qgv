@@ -2,15 +2,15 @@
 
 QGVGvcPrivate::QGVGvcPrivate(GVC_t *context)
 {
-		setContext(context);
+        setContext(context);
 }
 
 void QGVGvcPrivate::setContext(GVC_t *context)
 {
-	_context = context;
+        _context = context;
 }
 
-GVC_t* QGVGvcPrivate::context() const
+GVC_t *QGVGvcPrivate::context() const
 {
-	return _context;
+        return _context;
 }

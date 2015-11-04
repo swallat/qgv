@@ -66,7 +66,7 @@ public:
         const char *data;
         int        len;
         int        cur;
-    }                                      rdr_t;
+    }                                       rdr_t;
 
     static int memiofread(void *chan, char *buf, int bufsize)
     {

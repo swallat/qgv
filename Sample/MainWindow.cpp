@@ -119,7 +119,7 @@ void MainWindow::drawGraph()
         _scene->applyLayout();
 
         //Fit in view
-        ui->graphicsView->fitInView(_scene->sceneRect(), Qt::KeepAspectRatio);
+        ui->graphicsView->fitInView(_scene->itemsBoundingRect(), Qt::KeepAspectRatio);
 }
 
 void MainWindow::nodeContextMenu(QGVNode *node)

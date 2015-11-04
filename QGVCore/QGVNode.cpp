@@ -46,7 +46,7 @@ void QGVNode::setLabel(const QString &label)
 
 QRectF QGVNode::boundingRect() const
 {
-        return _path.boundingRect();
+        return _bounding_rect;
 }
 
 void QGVNode::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
@@ -113,12 +113,13 @@ void QGVNode::setIcon(const QImage &icon)
 void QGVNode::updateLayout()
 {
         prepareGeometryChange();
-        qreal width       = ND_width(_node->node()) * (DotDefaultDPI);
-        qreal height      = ND_height(_node->node()) * (DotDefaultDPI);
+        qreal width  = ND_width(_node->node()) * (DotDefaultDPI);
+        qreal height = ND_height(_node->node()) * (DotDefaultDPI);
 
         //Node Position (center)
         qreal gheight = QGVCore::graphHeight(_scene->_graph->graph());
-        setPos(QGVCore::centerToOrigin(QGVCore::toPoint(ND_coord(_node->node()), gheight), width, height));
+        QPointF pos = QGVCore::centerToOrigin(QGVCore::toPoint(ND_coord(_node->node()), gheight), width, height);
+        setPos(pos);
 
         //Node on top
         setZValue(1);
@@ -127,10 +128,12 @@ void QGVNode::updateLayout()
         if (0 == strcmp(ND_shape(_node->node())->name, "record")) {
                 this->is_record = true;
                 _record_desc = QGVCore::to_record_label((field_t *) ND_shape_info(_node->node()), width, height);
+                _bounding_rect = _record_desc.first().first;
         } else {
                 this->is_record = false;
                 _path = QGVCore::toPath(ND_shape(_node->node())->name, (polygon_t *) ND_shape_info(_node->node()),
                                         width, height);
+                _bounding_rect = _path.boundingRect();
         }
         _pen.setWidth(1);
 

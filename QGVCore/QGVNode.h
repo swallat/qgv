@@ -39,13 +39,13 @@ public:
 
     QString label() const;
 
-    void    setLabel(const QString &label);
+    void setLabel(const QString &label);
 
-    QRectF  boundingRect() const;
+    QRectF boundingRect() const;
 
-    void    paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget = 0);
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget = 0);
 
-    void    setAttribute(const QString &label, const QString &value);
+    void setAttribute(const QString &label, const QString &value);
 
     QString getAttribute(const QString &name) const;
 
@@ -68,19 +68,20 @@ private:
 
     void updateLayout();
 
-         QGVNode(QGVNodePrivate *node, QGVScene *scene);
+    QGVNode(QGVNodePrivate *node, QGVScene *scene);
 
     // Not implemented in QGVNode.cpp
 //		QPainterPath makeShape(Agnode_t* node) const;
 //		QPolygonF makeShapeHelper(Agnode_t* node) const;
     bool                             is_record = false;
     QVector<QPair<QRectF, QString> > _record_desc;
+    QRectF                           _bounding_rect;
     QPainterPath                     _path;
     QPen                             _pen;
     QBrush                           _brush;
     QImage                           _icon;
 
-    QGVScene *_scene;
+    QGVScene       *_scene;
     QGVNodePrivate *_node;
 };
 
